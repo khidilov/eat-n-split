@@ -8,7 +8,6 @@ export default function App() {
   const [showAddFriends, setShowAddFriends] = useState(false);
   const [friends, setFriends] = useState(initialFriends);
   const [selection, setSelection] = useState(null);
-  const [balance, setBalance] = useState(0);
   function handleAddFriends() {
     setShowAddFriends((cur) => !cur);
   }
@@ -16,10 +15,15 @@ export default function App() {
     setFriends((friends) => [...friends, friend]);
   }
 
-  function handleTransaction(trans) {
-    setBalance((balance) => balance + trans);
+  function updateBalance(value) {
+    setFriends((friends) =>
+      friends.map((friend) =>
+        selection.id === friend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
   }
-
   return (
     <div className="app">
       <div className="sidebar">
@@ -28,9 +32,6 @@ export default function App() {
           friends={friends}
           onSelect={setSelection}
           selected={selection}
-          balance={balance}
-          onBalance={setBalance}
-          onTransaction={handleTransaction}
         />
         {showAddFriends && (
           <FormAddFriend
@@ -42,7 +43,9 @@ export default function App() {
           {showAddFriends ? "Close" : "Add friends"}
         </Button>
       </div>
-      {selection && <FormSplitBill selected={selection} friends={friends} />}
+      {selection && (
+        <FormSplitBill selected={selection} onUpdate={updateBalance} />
+      )}
     </div>
   );
 }

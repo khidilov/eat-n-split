@@ -4,8 +4,6 @@ export default function FriendsList({
   friends,
   onSelect,
   selected = { selected },
-  onTransaction = { onTransaction },
-  transaction = { transaction },
   balance = { balance },
   onBalance = { onBalance },
 }) {
@@ -19,7 +17,6 @@ export default function FriendsList({
           selected={selected}
           balance={balance}
           onBalance={onBalance}
-          onTransaction={transaction}
         />
       ))}
     </ul>
