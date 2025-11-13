@@ -44,7 +44,11 @@ export default function App() {
         </Button>
       </div>
       {selection && (
-        <FormSplitBill selected={selection} onUpdate={updateBalance} />
+        <FormSplitBill
+          selected={selection}
+          onUpdate={updateBalance}
+          key={selection.id}
+        />
       )}
     </div>
   );
